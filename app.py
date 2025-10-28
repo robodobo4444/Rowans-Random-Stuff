@@ -4,7 +4,10 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    user__name = "robodobo4444"
+    return render_template('index.html', name = user_name)
+
+    
 
 @app.route('/about')
 def about():
@@ -13,6 +16,10 @@ def about():
 @app.route('/small_projects')
 def small_projects():
     return render_template('small_projects.html')
+
+@app.route('/major_projects')
+def major_projects():
+    return render_template('major_projects.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
