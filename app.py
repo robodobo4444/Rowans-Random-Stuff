@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    user_name = "robodobo4444"
+    user_name = ""
     return render_template('index.html', name = user_name)
 
     
