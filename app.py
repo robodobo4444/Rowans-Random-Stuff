@@ -48,7 +48,7 @@ def submit():
         flash("That Username is in use, Please try a different one", 'message')
 
     return redirect("testing.html")
-
+   
 if __name__ == '__main__':
     init_csv()
     app.run(debug=True)
