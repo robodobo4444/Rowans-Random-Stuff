@@ -34,8 +34,8 @@ def submit():
         if username in f.read():
             username_in_use = True
         else:
-            username_in_use == False
-    if username_in_use = False
+            username_in_use = False
+    if username_in_use == False
         try:
             with open(CSV_FILE, 'a', newline='') as f:
                 writer = csv.writer(f)
