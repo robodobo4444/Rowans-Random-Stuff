@@ -22,7 +22,7 @@ def small_projects():
 def major_projects():
     return render_template('major_projects.html')
 
-@app.route("/sign_up')
+@app.route("/sign_up")
 def sign_up():
     return render_template("Sign_up.html")
 @app.route("/submit", methods=["POST"])
@@ -31,21 +31,24 @@ def submit():
     password = request.form.get("password")
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     with open(CSV_FILE, 'r') as f:
-        if username in file.read():
+        if username in f.read():
             username_in_use = True
         else:
-            username_in_use = False
+            username_in_use == False
     if username_in_use = False
-    try:
-        with open(CSV_FILE, 'a', newline='') as f:
-            writer = csv.writer(f)
-            writer.writerow([timestamp, name, email, message])
-
-        flash('Data successfully saved!', 'success')
-    except Exception as e:
-        flash(f'Error saving data: {str(e)}', 'error')
+        try:
+            with open(CSV_FILE, 'a', newline='') as f:
+                writer = csv.writer(f)
+                writer.writerow([timestamp, name, email, message])
+    
+            flash('Data successfully saved!', 'success')
+        except Exception as e:
+            flash(f'Error saving data: {str(e)}', 'error')
+    if username_in_use == True:
+        flash("That Username is in use, Please try a different one", 'message')
 
     return redirect("testing.html")
 
 if __name__ == '__main__':
+    init_csv()
     app.run(debug=True)
