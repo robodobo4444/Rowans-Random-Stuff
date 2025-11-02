@@ -3,7 +3,14 @@ import csv
 import os
 from datetime import datetime
 
+app.secret_key = 'your-secret-key-here'
+CSV_FILE = 'users.csv'
 app = Flask(__name__)
+def init_csv():
+       if not os.path.exists(CSV_FILE):
+           with open(CSV_FILE, 'w', newline='') as f:
+               writer = csv.writer(f)
+               writer.writerow(['Timestamp', 'Username', 'Password'])
 
 @app.route('/')
 def home():
@@ -39,7 +46,7 @@ def submit():
         try:
             with open(CSV_FILE, 'a', newline='') as f:
                 writer = csv.writer(f)
-                writer.writerow([timestamp, name, email, message])
+                writer.writerow([timestamp, username, password])
     
             flash('Data successfully saved!', 'success')
         except Exception as e:
@@ -47,8 +54,9 @@ def submit():
     if username_in_use == True:
         flash("That Username is in use, Please try a different one", 'message')
 
-    return redirect("testing.html")
-   
+    return redirect('Sign_up.html')
+
+
 if __name__ == '__main__':
     init_csv()
     app.run(debug=True)
