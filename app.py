@@ -29,7 +29,7 @@ def small_projects():
 def major_projects():
     return render_template('major_projects.html')
 
-@app.route("/sign_up")
+@app.route("/Sign_up")
 def sign_up():
     return render_template("Sign_up.html")
 @app.route("/submit", methods=["POST"])
