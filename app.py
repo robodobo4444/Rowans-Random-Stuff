@@ -3,7 +3,7 @@ import csv
 import os
 from datetime import datetime
 
-app.secret_key = 'your-secret-key-here'
+
 CSV_FILE = 'users.csv'
 app = Flask(__name__)
 def init_csv():
