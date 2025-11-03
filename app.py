@@ -8,7 +8,7 @@ CSV_FILE = 'users.csv'
 SECRET_KEY_FILE = 'secret.key'
 
 app = Flask(__name__)
-# No secret key needed if you're not using flash or sessions!
+
 
 def init_csv():
     if not os.path.exists(CSV_FILE):
