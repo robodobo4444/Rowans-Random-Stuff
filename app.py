@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, flash
+from flask import Flask, render_template, request, redirect, url_for
 import csv
 import os
 import secrets
@@ -8,19 +8,7 @@ CSV_FILE = 'users.csv'
 SECRET_KEY_FILE = 'secret.key'
 
 app = Flask(__name__)
-
-# Generate or load secret key
-def get_or_create_secret_key():
-    if os.path.exists(SECRET_KEY_FILE):
-        with open(SECRET_KEY_FILE, 'r') as f:
-            return f.read().strip()
-    else:
-        key = secrets.token_hex(32)
-        with open(SECRET_KEY_FILE, 'w') as f:
-            f.write(key)
-        return key
-
-app.secret_key = get_or_create_secret_key()
+# No secret key needed if you're not using flash or sessions!
 
 def init_csv():
     if not os.path.exists(CSV_FILE):
@@ -65,23 +53,21 @@ def submit():
     password = request.form.get("password")
     
     if not username or not password:
-        flash("Username and password are required!", 'error')
-        return render_template("Sign_up.html")
+        # Pass error message directly to template
+        return render_template("Sign_up.html", error="Username and password are required!")
     
     if username_exists(username):
-        flash("That Username is in use. Please try a different one.", 'error')
-        return render_template("Sign_up.html")
+        return render_template("Sign_up.html", error="That Username is in use. Please try a different one.")
     
     try:
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         with open(CSV_FILE, 'a', newline='') as f:
             writer = csv.writer(f)
             writer.writerow([timestamp, username, password])
-        flash('Account successfully created!', 'success')
+        # Pass success message directly to template
+        return render_template("Sign_up.html", success="Account successfully created!")
     except Exception as e:
-        flash(f'Error saving data: {str(e)}', 'error')
-    
-    return render_template("Sign_up.html")
+        return render_template("Sign_up.html", error=f"Error saving data: {str(e)}")
 
 if __name__ == '__main__':
     init_csv()
