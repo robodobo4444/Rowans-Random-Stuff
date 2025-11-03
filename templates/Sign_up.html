@@ -1,29 +1,35 @@
 <!DOCTYPE html>
 <html>
-<head><title>Sign Up</title></head>
-  <body>
-    <nav href='/'>Home</nav>
+<head>
+    <title>Sign Up</title>
+</head>
+<body>
     <h1>Sign Up</h1>
-    <h3>Your information is not secure yet. I am working on it.</h3> 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    {% for category, message in messages %}
-    <div class="flash-message {{ category }}">
-        {{ message }}
-    </div>
-    {% endfor %}
+    
+    <!-- Display error messages -->
+    {% if error %}
+        <div style="color: red; padding: 10px; background-color: #ffeeee; margin-bottom: 10px;">
+            {{ error }}
+        </div>
     {% endif %}
-    {% endwith %}
+    
+    <!-- Display success messages -->
+    {% if success %}
+        <div style="color: green; padding: 10px; background-color: #eeffee; margin-bottom: 10px;">
+            {{ success }}
+        </div>
+    {% endif %}
+    
     <form action="/submit" method="POST">
-        <h3>Username:</h3>
+        <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>
-        <h3>Password:</h3>
+        <br><br>
+        
+        <label for="password">Password:</label>
         <input type="password" id="password" name="password" required>
-        <br>
-        <h3>Please select submit when you are done</h3>
-        <button type="submit">Submit</button>
+        <br><br>
+        
+        <button type="submit">Sign Up</button>
     </form>
-    
-    
-  </body>
+</body>
 </html>
